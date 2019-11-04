@@ -1,0 +1,22 @@
+  	安装
+			$ sudo apt install apache2
+				默认情况下安装后会自动启动
+
+			$ sudo service apache2 status
+			$ sudo service apache2 start
+			$ sudo service apache2 restart
+			$ sudo service apache2 stop
+
+				启动apache2
+
+			apache的部署目录
+			 	/var/www/html/
+			 		wangyi/index.html
+
+    测试
+			浏览器地址栏
+			http://123.57.238.144
+			=> /var/www/html/index.html
+
+			http://123.57.238.144/wangyi
+			=> /var/www/html/wangyi/index.html

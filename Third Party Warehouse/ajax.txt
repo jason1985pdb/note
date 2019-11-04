@@ -1,0 +1,113 @@
+ ajax
+	async javascript and xml（json）
+	异步的javascript和xml
+	用于浏览器和后台服务进行异步交互（传递信息）
+	1) 特点：
+		不会导致页面的全局刷新就可以进行与后台的交互
+		交互需要在"查看元素 -> 网络"中监控
+	2) 使用方式
+		XMLHttpRequest
+		1. 实例化
+			var xhr = new XMLHttpRequest();
+		2. 设置请求
+			xhr.open(method,url);	
+		3. 设置头信息
+			xhr.setRequestHeader()
+		4. 设置体信息（method为post时候）
+			xhr.send(data);
+		1. 设置监听
+			xhr.onreadystatechange = function(){
+				this.readyState	// 	1 2 3 4 
+				this.status			// 	200 404 500
+				this.response		//	响应信息
+			}
+			200 	ok
+			404 	找不到资源
+			500 	后台异常
+	http://134.175.154.93:6677/swagger-ui.html
+	http://172.16.5.250:6677/swagger-ui.html
+		HTTP请求报文
+			请求行
+				GET / HTTP/1.1
+			请求头信息
+				Content-Type:application/x-www-form-urlencoded
+				Content-Size:1204
+				...
+			请求体信息（post参数）
+		HTTP响应报文
+			响应行
+				HTTP/1.1 200 OK
+			响应头
+				Server: Apache
+				Content-Length: 29769
+				Content-Type: text/html
+				...
+			响应体
+				<!DOCTYPE html...
+ jQuery中的ajax【基于回调函数】
+	1. 速写方法
+		$.get(url[,data][,success][,dataType])
+			以get方式请求
+				url 	请求地址
+				data  请求参数，对象
+				success		回调函数
+				dataType 	responseType
+			=>
+			$.ajax(url,{
+				method:"get",
+				success:function(){},
+				data:data,
+				dataType:'json'
+			})
+		$.post(url[,data][,success][,dataType])
+			以post方式请求
+				url 	请求地址
+				data  请求参数，对象
+				success		回调函数
+				dataType 	responseType
+			=>
+			$.ajax(url,{
+				method:"post",
+				success:function(){},
+				data:data,
+				dataType:'json'
+			})
+	2. 低级别接口
+		$.ajax(url,settings)
+		settings是一个对象，配置信息；
+			async 			异步，true;
+			beforeSend	回调函数，在请求发送前调用
+			complete		回调函数，请求接受后调用
+			success 		回调函数，请求成功后
+			error 			回调函数，请求结束后
+			contentType 参数类型，默认为querystring
+				默认值application/x-www-form-urlencoded
+				如果参数为json，要改为application/json
+			processData	boolean,默认将data转换为查询字符串
+				如果参数为json，要将其设置为false
+			data 				对象，参数
+				如果参数为json；JSON.stringify(对象)
+			dataType 		responseType,json/xml/script...
+			headers 		对象，setRequestHeader(key,val)
+			method 			请求方式，get/post
+	3. 如何使用jQuery发送json数据？
+		xhr.setRequestHeader("Content-Type","application/json");
+		xhr.send(JSON.stringify(data))
+		=>
+		$.ajax(url,{
+			method:"post",
+			contentType:"application/json",
+			processData:false,
+			data:JSON.stringify(参数对象),
+			success:function(){}
+		})
+ axios中的ajax【基于Promise es6】-【基于异步函数】
+
+ jquery页面局部更新
+	$("#wrapper").load("./pages/customer.html");
+	将customer.html加载到id为wrapper的元素中。http协议下完成，需要搭建一个本地的apache服务器，把页面部署到apache进行测试
+	部署：
+		apache部署目录 
+			linux: 		/var/www/html
+			windows:	apache_home/htdocs
+	http://localhost:80/ej/

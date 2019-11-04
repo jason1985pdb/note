@@ -1,0 +1,48 @@
+ subversion 安装
+		将本地代码保存到服务器端，具有版本控制。
+		客户端：tortoiseSVN/axure/webstorm
+		服务端：subversion
+		1) 安装
+			$ sudo apt install subversion
+		2）测试
+			$ svn help
+		3) 创建仓库，初始化仓库
+			# 进入到家目录
+			$ cd 
+			# 在家目录中创建仓库目录
+			$ mkdir repository
+			# 将仓库目录初始化为svn远程仓库
+			$ svnadmin create repository
+				conf  db  format  hooks  locks  README.txt
+		4) 配置仓库信息
+				conf
+					svnserve.conf 	svn核心配置文件
+					 	19 anon-access = read
+ 						20 auth-access = write
+						27 password-db = passwd
+						36 authz-db = authz
+					passwd 					用户及密码
+						[users]
+						terry = terry
+						larry = larry
+						tom = tom
+						jacky = jacky
+						boss = boss
+					authz 					权限
+						[groups]
+						webui = tom,jacky,boss
+						javaee = terry,larry,boss
+
+						[/]
+						boss = rw
+
+						[/webui]
+						@webui = rw
+
+						[/javaee]
+						@javaee = rw
+		5) 启动仓库
+			$ svnserve -dr repository
+
+		6) 开放端口	3690
+		7) 使用小乌龟链接

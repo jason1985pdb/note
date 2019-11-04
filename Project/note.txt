@@ -1,0 +1,270 @@
+问题
+	1. 版本控制器 git/svn
+		冲突
+		如何避免冲突
+		pages
+			Customer.vue 	router/index.js
+			Category.vue 	router/index.js
+	2. 增删改查
+	3. 基础问题
+		es5 es6 css html
+安排
+	1. 项目启动
+		1) 各端负责人
+			创建项目，初始化项目，提交到github中
+		2) 成员clone项目
+			开发
+	2. 后端接口重新部署
+	3. 订单
+		webapp-顾客端
+			注册（customer1、customer2、customer3）
+			登录
+				login(username,password)
+				info(token)
+			添加地址信息
+			首页浏览栏目
+			-> 产品分类浏览产品
+			-> 下单
+			->购物车会自动计算产品总价
+			-> 下单 
+			-> 确认订单 
+			-> 订单列表（查看订单详情）
+		编写流程：
+		webapp-顾客端 
+			1. 创建项目
+				> vue create app01
+				> cnpm intsall axios qs lodash moment --save
+				> vue add vant【element】
+			2. 初始化项目
+				http/axios.js
+				pages/
+					manager
+						Home.vue
+						Order.vue
+						User.vue
+						Address.vue
+						OrderComfirm.vue
+						...
+					Login.vue
+				router
+					index.js
+			3. 上传到gitHub中
+			4. 功能
+				0. 注册
+				1. 登录*
+					login(username,password)
+						token
+					info(token)
+				2. 导航*(首页，订单，我，地址列表，地址添加/修改)
+				3. 我的页面*
+				4. 地址列表*
+				5. 地址添加、修改、删除
+		webapp-员工端
+			1. 创建项目
+				> vue create app01
+				> cnpm intsall axios qs lodash moment --save
+				> vue add vant
+			2. 初始化项目
+				http/axios.js
+				pages/
+					manager
+						Home.vue
+						Order.vue
+						User.vue
+						...
+					Login.vue
+				router
+					index.js
+			3. 功能
+				1) 登录 *
+				2) 导航*（首页，订单，我）
+				3) 我的页面 *
+
+		后台管理系统-管理员端
+			1. 创建项目
+				vue-element-admin
+			2. 左侧栏目
+				基础配置
+					栏目管理
+					产品管理
+				顾客管理 *  findAll
+					查询*
+					详情
+				员工管理 * 	findAll
+					查询*
+					详情
+				订单管理
+				审核大厅
+					员工审核
+					提现审核
+			3. 登录*
+				配置好
+后台接口部署
+	ej.xxxx.jar
+	ej1.0.sql
+	具体步骤
+		$ ps -ef | grep ej
+			查看ej.jar所占进程号，关闭掉
+		$ kill -9 4718
+		$ nohup java -jar ej.xxx.jar &
+	数据库更新
+	使用navicator连接到数据库中，然后导入sql文件即可
+1. 管理员端登录
+	views/
+		login
+			Index.vue
+	store
+		modules
+			user.js
+				actions:{
+					login(context,userInfo){
+
+					}
+				}
+2. 顾客端、员工端
+	Login.vue
+		登录按钮
+	store
+		user.js
+			actions:{
+				login(){
+
+				},
+				info(){
+
+				}
+			}
+	1) 构建工程
+		> vue create jz_customer
+		> cd jz_customer
+		> cnpm install axios qs lodash moment --save
+		> vue add vant
+	2) 使用vscode打开项目
+	3) 启动项目
+	4) 将以前积累的工具添加到src中
+		http/axios
+	5) 创建页面，并且将页面配置到路由中
+
+3. 员工端项目构建
+	1) 构建工程
+		> vue create jz_waiter
+		> cd jz_customer
+		> cnpm install axios qs lodash moment --save
+		> vue add vant
+	2) 使用vscode打开项目
+	3) 启动项目
+	4) 将以前积累的工具添加到src中
+		http/axios
+	5) 创建页面，并且将页面配置到路由中
+	登录过程
+		后台接口，需要经过认证之后才允许访问
+		/customer/findAll
+		1) 使用用户名密码登录，后台返回一个token(令牌)
+		2) 将token保存起来，保存到缓存机制
+				cookie					js-cookie
+				sessionStorage	会话缓存
+				localStorage 		浏览器缓存
+		3) 使用token查询用户的基本信息
+
+
+1. 管理端
+	1) 栏目管理（添加，修改，删除，查询）*
+	2) 产品管理（添加，修改，删除，查询，详情）*
+		添加（附件上传的功能）
+		<el-upload></el-upload>
+	3) 订单管理页面（显示*）
+			订单详情 	-
+			派单			-
+token 			根据token查询info
+登录 ----> manager/Index.vue(后台页面) ----> 订单
+					rotuer-view(首页，订单，我的)
+					导航
+
+					created(){											info.id
+						if(token){
+							this.info(token)
+						} else {
+							this.$toast('token失效')
+						}
+					}
+
+订单管理：
+	在页面加载的时候查询该顾客的所有订单
+	store/modules/user.js
+	store/modules/order.js
+	manager/Index.vue 
+		created(){
+			// 通过token换取info
+			this.getInfo(token)
+		}
+	Order.vue 
+	created(){
+		// 通过info中的id查询该顾客的订单
+		this.findAllOrders()
+	}
+	actions:{
+		findAllOrders({rootState}){ 
+			let customerId = rootState.user.info; // {}
+			let response = await get('/order/findByCustomerId')
+		}
+	}
+	async info(token){
+		let response = await get(token)
+		console.log(response)
+	}
+	async findAllOrder(){
+		let response = await get(id)
+		console.log(response)
+	}
+	info()
+	findAllOrder()
+
+	Index.vue -> Order.vue
+ 缓存机制
+		localStorage
+		sessionStorage
+		cookie (js-cookie)
+manager/Index.vue 		后台管理页面
+
+	created(){
+		if(token){
+			//通过token找info
+			info(token)
+		} else {
+			toast(token失效)
+		}
+	}
+	router-view (Home/Order/User)
+	导航
+	Home.vue
+	Order.vue
+		通过顾客id查询顾客的所有订单
+		created(){
+			this.findAllOrders();
+		}
+		order.js
+			actions:{
+				findAllOrders(context){
+					context.state
+					context.getters
+					context.mutations
+					context.actions
+
+					let info = context.rootState.user.info;
+
+					let response = get('/order/findByCustomerId',info.id)
+				}
+			}
+		后台管理页面 
+			info(token)
+				aysnc info (token){
+					let response = await get()
+					console.log(response);
+				}
+		订单
+			findAllOrders()
+				info.id
+				async findAllOrders({rootState}){
+					let response = await get(,rootState.user.info.id)
+					console.log(response);
+				}

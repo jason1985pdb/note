@@ -1,0 +1,60 @@
+	vsftpd安装
+		作用：可以使用ftp工具或者命令将客户机上的文件上传到服务器上。
+
+		server: ftp服务器程序 	vsftpd
+		client: ftp客户端程序 	fillzilla、smartFTP
+
+		关闭进程：
+			$ ps -ef | grep vsftpd
+			$ kill -9 pid
+			# 或者
+			$ killall vsftpd
+		删除软件（apt install / apt remove）
+		删除软件（解压 / 删除）
+			$ sudo apt remove --purge vsftpd
+		安装过程：
+			1) 使用apt安装
+				$ sudo apt install vsftpd
+			2) 测试
+				$ vsftpd -version
+				vsftpd: version 3.0.3
+				/usr/sbin不在PATH中
+			3) 连接测试
+				$ ftp 152.136.136.220
+				提示输入用户名密码，说明可以访问ftp服务器
+				如果提示timeout，说明网络有可能不同，对方添加了防火墙
+				
+				解决方案：
+					去阿里云的管理页面中打开21端口即可
+			4) 如果使用的是fillzilla
+				将被动模式变为主动模式
+			5) 这时候可以查看，但是无法上传文件
+				解决方案：
+					配置vsftpd
+					$ sudo vi /etc/vsftpd.conf
+					将31行的注释给删除即可
+					write_enable=YES
+			6) 重启vsftpd
+				$ sudo service vsftpd restart
+
+		PATH 环境变量
+			/home/ubuntu/bin:
+			/home/ubuntu/.local/bin:
+			/usr/local/sbin:
+			/usr/local/bin:
+			/usr/sbin:
+			/usr/bin:
+			/sbin:
+			/bin:
+			/usr/games:
+			/usr/local/games:
+			/snap/bin:/opt/node-v10.16.2/bin:
+		终端
+			ls
+			vsftpd
+
+		解决方案：
+		$ sudo vi /etc/profile
+			追加
+			export PATH=$PATH:/usr/sbin
+		$ source /etc/profile

@@ -1,0 +1,31 @@
+1) nodejs
+ 			模块化
+ 			1. 安装模块
+ 				$ npm install moment
+ 			2. 导入模块
+ 				import moment from 'moment'
+ 			3. 使用模块
+ 				moment();
+		2) 浏览器
+			<head>
+				<!--导入js文件-->
+				<script src="xxx.js"></script>
+				<script>
+					<!--编写js代码-->
+				</script>
+			</head>
+
+			src="path"
+			1. 本地路径（相对）
+				下载到本地
+				引用
+				<script src="./lodash.min.js"></script>
+
+			2. cdn
+				直接引用
+				<script src="https://cdn.bootcss.com/lodash.js/4.17.15/lodash.js"></script>
+				好处：
+					速度快
+					简洁
+					需要网络
+

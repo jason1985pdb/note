@@ -1,0 +1,5 @@
+第三方动画库（animate.css）
+			封装了css3的通用的动画样式
+			https://daneden.github.io/animate.css/
+			1. 引入动画库
+			2. 为元素添加class

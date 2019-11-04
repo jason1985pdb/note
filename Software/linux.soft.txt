@@ -1,0 +1,11 @@
+		1) apt命令安装
+			 更新源
+			# apt update 
+			 安装软件包
+			# apt install xxx
+			# apt install zip
+			# apt install git
+			# apt install mysql-server-5.7
+		2) 解压缩安装
+			jdk
+			nodejs

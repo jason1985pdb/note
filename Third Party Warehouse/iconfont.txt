@@ -1,0 +1,5 @@
+字体图标库（iconfont）
+		使用步骤：
+			1) 在iconfont网站中选择图标，加入项目，产生代码
+			2) 将产生的代码在html中通过link引用 http://at.alicdn.com/t/font_1328534_f3dyyeuoew.css		
+			3) 应用css中定义好的类，来使用对应的图标

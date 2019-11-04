@@ -1,0 +1,542 @@
+1. Javascript组成
+	ECMAScript5（javascript语法标准）
+		js标准语法
+		注释
+		变量
+		操作符
+		操作数
+		表达式
+		语句
+		数组
+		函数
+		对象
+	DOM （document object model）
+		js操作html
+		文档浏览器
+		var dom = document.getElementById("");
+		dom.onclick = function(){}
+		dom.addEventListener(function(){})
+	BOM （browser object model）
+		js操作浏览器
+		alert();
+		setInterval()
+		setTimeout()
+2. js解释器
+	1) 在所有的主流浏览器中都具备js解释器
+	2) google 	chrome 
+		google v8引擎（js解释器）-> nodeJS
+		nodejs -> linux,unix,windows,macos
+		js不仅仅可以运行在浏览器端，还可以运行在服务器端
+		js运行在浏览器端：动画，表单验证，ajax数据交互
+		js运行在服务器端：js转换，代码编译，操作数据库
+3. 变量
+	强类型
+		变量的数据类型取决于变量的声明
+		int a = 3;
+		a是个整数类型，由于int a ;
+		a = true;
+		以上表达式不允许，因为a是一个整数类型，不能赋值为布尔类型
+	弱类型
+		变量的数据类型取决于值的类
+		var a ; 	// 变量的声明
+		a = 3 ;		// 变量的初始化
+		=>
+		var a = 3;	//变量的声明与初始化一起
+
+		a是个数字类型，由于a = 3;
+		a = true;
+		a变成类布尔类型
+	变量类型
+		基本数据类型
+			数字类型 number
+				var a = 3;
+				var a = 3.0;
+			字符串类型 string
+				var str = "hello world";
+				var str = 'hello';
+				var str = '{"name":"terry"}'
+			布尔类型 boolean
+				var b = true;
+				var b = false;
+			null object
+				一般表示空对象
+				var a = null;
+			undefined
+				var a;							// undefined
+				var a = undefined;	//undefined
+			检测数据类型	
+				var a = 3;
+				typeof a
+				isNaN(result)
+					3/"a"
+					如果result是NaN,那么这个函数返回true
+				isFinite(result)
+		引用数据类型
+			数组
+				var arr = [1,2,3,4,5,6];
+				var names = ["terry","larry","tom"]
+			函数
+				function sayHello(){
+					console.log();
+				}
+			对象
+				var p = {
+					name:"terry",
+					age:21,
+					gf:null
+				}
+	 1)三目运算符
+		exp1 ? exp2 : exp3
+		当exp1为真，返回exp2，否则返回exp3
+		var result = age > 18 ? "成年人" : "未成年人"
+		==>
+		var result;
+		if(age > 18){
+			result = "成年人";
+		} else {
+			result = "未成年人"
+		}
+	 2)拼接运算符
+		当使用 "+" ，操作数中出现了字符串，那么就肯定是拼接运算
+	其他数据类型转换为string
+		v+""
+		String(v);
+		v.toString();	//null与undefined除外
+	其他数据类型转换为number
+		+v
+		-(-v)
+		Number();
+		parseInt();
+		parseFloat();
+		解析字符串为整数int、是浮点数float
+4. 对象
+	1) 介绍
+	复杂的数据类型，引用数据类型，一般情况下，对象中包含了多个属性和方法。
+	2) 对象创建方式
+		1. 对象字面量
+			对象使用"{}"作为边界，对象是由多个属性(方法是一种特殊的属性)来组成，每个属性之间通过","分割，属性名与属性值之间通过":"分割。属性名可以不使用双引号，当属性名中包含特殊字符一定使用双引号，属性值一般为常量或者具体的值，也可以变量
+		2. 使用构造函数构建对象
+			var obj = new Object();
+			obj.name = "terry";
+			obj.age = 12;
+			=>
+			var obj = {};
+			obj.name = "terry";
+			obj.age = 12;
+			...
+			var obj = {};
+			Object是所有对象的根对象，一个普通对象都会直接间接的继承Object
+	3) 属性的访问：
+		点访问符
+			对象名.属性名
+			obj.name
+		中括号访问符
+			var name = "name";
+			obj[name]
+			=>
+			obj["name"]
+
+	4) 所有的对象直接或者间接的继承Object，也就是说所有的对象都可以调用Object原型中的方法和属性。
+		Object.prototype.xxx
+		constructor 					构造函数，谁创建了当前对象
+		hasOwnProperty(prop)	判断某个属性是否属于当前对象的自有属性
+		propertyIsEnumerable(prop)	检测某个属性是否可以被枚举
+		isPrototypeOf(prop)		检测某个属性是否是原型链中的属性
+		toString(); 					返回该对象的字符串描述信息
+		valueOf(); 						返回该对象的数字描述信息
+	5) 对象序列化和返序列化
+		var obj = {name:"terry"};
+		将js对象转换为json字符串
+		var json = JSON.stringify(obj)
+		将json字符串转换js对象
+		var obj = JSON.parse(json);
+		obj可以为对象或者数组；key表示对象的属性名或者是数组的索引；在运行的时候，每次从obj中获取一个属性名或者索引赋值给key，然后执行循环体，循环...
+5. 函数
+	1) 函数的用处
+		1. 使用函数封装某些功能代码，执行特定功能
+			arr.sort() 	 	排序
+			arr.reverse()   数组反转
+			jQuery()  		调用jquery函数完成特定功能
+	2) 函数的使用
+		2.1 函数的定义
+			1) 函数声明
+				function 函数名(形参) {
+					函数体
+				} 
+			2) 函数表达式
+				var 函数名 = function(形参){
+
+				}
+				sayHello();
+				var sayHello = function(){
+
+				}
+				console.log(a);
+				var a = 3;
+		2.2 函数的调用
+			函数名(实参)
+			函数名.call(this,实参列表);
+			函数名.apply(this,实参数组);
+	3) 函数的作用域
+		如果一个变量声明在函数中，那么这个变量只能在函数中访问，当函数执行完毕后，这个变量就会被释放掉。
+	4) 值传递和引用传递
+		var a = 3;
+		var b = a; 		//b 为3		值拷贝
+		b++
+		console.log(a);
+		var a = {name:"terry",age:12};
+		var b = a;		// a为指针，b为指针 	引用拷贝
+		b.age++;
+		console.log(a.age);
+
+6. 数组
+	1) 作用
+		存放多个数据的集合；
+	2) 定义方式
+		1. 数组字面量
+			var name = "terry"
+			var arr = [name,1,true,"hello",null,{name:"s"},function(){}];
+		2. 构造函数 Array
+			Array 继承 Object
+			通过Array构造函数构建出来的对象可以调用Array原型中的方法，还可以调用Object原型中的方法
+			var arr = new Array();
+	3) 数组访问方式
+		中括号访问符，索引从0开始，如果指定索引的位置没有值，返回undefined
+		数组名[索引]
+	4). 数组内存
+		var arr = ["terry",12,[1,2,3]];
+		arr是变量，保存在栈区
+		arr是引用数据类型的变量，栈区保存的引用地址，数组的值保存在堆区
+	5). 数组的属性
+		数组也是一种对象，length是表示数组长度的属性，length表示数组中元素的个数
+	6). 数组的遍历(循环遍历索引)
+		var arr = [1,2,3,4,5];
+		1 使用for循环
+		2 使用while
+		3 使用do-while
+		4 使用增强for循环	
+			for(var key in arr){
+				var val = arr[key]
+			}
+		    添加元素移除元素相关【改变原值】
+			push(p1,p2,...); 	入栈，在数组的最后添加一个元素
+				参数：要入栈的元素
+				返回值：数组长度
+			pop(); 		出栈，从数组的最后取出一个元素
+				参数：none
+				返回值： 	出栈的元素
+			shift();	出队，将数组中第一个元素取出来
+				参数：none
+				返回值：出队的元素
+			unshift(p1,p2,...); 	插队，将元素插入在数组的最前面
+				参数：要插队的元素
+				返回值：插队后队列的长度
+		5. 排序方法【改变原值】
+			sort()
+				按照字符在字符编码表中出现的位置进行排序
+				3,12,29,8,32,4
+				=》
+				12, 29, 3, 32, 4, 8 
+			sort(comparator)
+				comparator为一个比较器函数，函数可以接受两个值a,b；当a位于b之前的时候返回
+		6. 序列化方法
+			toString()
+			将数组转换为字符串，数组中的元素通过逗号连接
+			join(v)
+			将数组转换为字符串，数组中的元素通过v连接
+			JSON.stringify();
+			将数组转换为JSON字符串
+		7. 截取方法
+			concat() 【不改变原值】
+				将参数中的数组和当前数组合并为一个数组
+				参数：多个数组
+				返回值：合并后的数组
+			slice(begin,end)【不改变原值】
+				从当前数组中截取一个子数组并且范围
+				参数：begin 	起始位置；end 	结束位置
+				返回值：截取到的子数组
+			splice(begin,delete[,p1,p2,...])【改变原值】
+				从数组中删除、插入、更新元素
+				参数：
+					begin
+						起始位置（删除，插入）
+					delete
+						删除的个数
+					p1,p2,...
+						插入的值
+				返回值：
+					删除的元素组成的数组
+				var arr = [1,2,3,4,5];
+				arr.splice(1,3,9,9,9)
+		8. 迭代方法
+			forEach(function(item,index,arr){})
+				遍历当前数组
+				参数：function(item,index,arr){}
+					每次遍历一次，这个匿名函数就会被调用一次，forEach将当前遍历的元素，索引，当前数组当做实参传递个这个匿名函数
+			every(function(item,index,arr){})
+				判断数组中所有的元素是否满足回调函数中给定的条件
+				参数：function(item,index,arr){}
+					当每次回调函数返回值为true，every方法的结果为true,
+					当回调函数返回值为false,every方法的结果就为false
+			some(function(item,index,arr){})
+				判断数组中是否有满足条件的元素
+				参数：function(item,index,arr){}
+					当回调函数返回true,some方法的结果就为true
+					当每次回调函数返回false,some方法的结果才为falses
+			filter(function(item,index,arr){})
+				参数：function(item,index,arr){}
+					当回调函数返回true,当前元素就会被添加到返回值数组中
+				返回值：数组
+			map(function(item,index,arr){})
+				参数：function(item,index,arr){}
+					回调函数可以返回任意类型的值，这些值都会被添加到map方法的返回值数组中
+				返回值：数组
+		9 查找方法
+			indexOf()
+			lastIndexOf()
+7. 包装器类型
+	Number
+	Boolean
+	String
+	String.prototype.xxx
+		length
+			获取字符串中字数的数量
+		charAt(index)
+			获取指定索引处的字符
+		charCodeAt(index)
+			获取指定索引处的字符编码
+		indexOf()
+			获取指定字符在字符串中索引
+		lastIndexOf();
+			获取指定字符在字符串中的索引，【从后往前】
+		concat()
+			连接两个字符串
+		slice(begin,end)
+			截取子字符串，begin开始位置，end结束位置，不包含结束位置
+		substring(begin,end)
+			截取子字符串，begin开始位置，end结束位置，不包含结束位置
+		substr(begin,length)
+			截取子字符串，begin开始位置，length截取的字符的个数
+		trim()
+			删除字符串左右两边的空格
+			" 112233   "
+		toUpperCase()
+			转换为大小
+		toLowerCase()
+			转换为小写
+		对正则表达式支持的方法
+		search(regexp)
+			测试，类似于test()，不支持global
+			返回值匹配内容的索引
+		match(regexp)
+			查找匹配的内容
+			返回值数组，保存了匹配的内容
+		replace(regexp,xx)
+		split(regexp)
+8. 正则表达式
+	RegExp 	构造函数
+	1) 实例化正则表达式对象
+		1. 构造函数模式
+			var pattern = new RegExp("正则表达式","模式");
+			var pattern = new RegExp("[0-9]{4}-[0-9]{7}","g")
+
+		2. 正则表达式字面量
+			var pattern = /正则表达式/模式
+			var pattern = /[0-9]{4}-[0-9]{7}/gim
+	2) 正则表达式
+		[0-9]{4}-[0-9]{7}
+		0351-5510110
+		1. 字符类
+			. 		匹配任何单个字符
+			\d 		匹配任意数字，等价于[0-9]
+			[0-9] 匹配中扩展任意一个字
+			[0123456789]
+			\D 		匹配任意非数字
+			[^0-9]	等价于\D，上箭头在中括号中表示非
+			^[0-9] 	表示任意一个数字作为一行的开始
+			\w 		字符，等价于[a-zA-Z0-9_]
+			[a-zA-Z0-9_]
+			\W 		非字符，等价于[^a-zA-Z0-9_]
+			\s 		空白字符，tab,return,space...
+			\S 		非空白字符
+		2. 分组
+			/[a-z][0-9]/ig
+			匹配一个字符后拼接一个数字
+			a1
+			o2
+			d3
+			/([a-z])([0-9])/ig
+			匹配一个字符后拼接一个数字，分组匹配字符，分组匹配数字
+			a1 	a 	1
+			o2 	o 	2
+			d3 	d 	3
+			a1hello2world3
+		3. 数量词
+			exp{3}		将前面的表达式匹配3次
+			exp{3,5} 	将前面的表达式匹配3~5次
+			exp{3,} 	将前面的表达式匹配3+次
+			exp* 			将前面的表达式匹配0次或多次
+			exp+ 			将前面的表达式匹配1次或多次
+			exp? 			将前面的表达式匹配0次或1次
+			贪婪匹配(默认情况下)
+				/\d{2,}/
+				尽可能多的匹配
+				var str = "abc123456789"
+				=>123456789
+			非贪婪匹配
+				/\d{2,}?/
+				尽可能多的匹配
+				var str = "abc123456789"
+				=>12
+			\d{3}
+			[0-9]{3}
+	3) 模式
+		i 	ignoreCase
+		g 	global
+		m 	multiline
+9. Date 日期构造函数
+	    实例化日期对象
+		var d1 = new Date();
+		var d2 = new Date(timestamp);
+		时间戳是指格林威治时间1970年01月01日00时00分00秒(北京时间1970年01月01日08时00分00秒)起至现在的总秒数
+		toString()
+		toLocaleString()
+		...(mdn)
+		getTime()
+			Date							java.util.Date
+10. DOM（js操作html的api）
+	 1. 第三方js库【操作html】
+		DOM构造函数树
+													Node(节点)
+		Document（文档） 			Element（元素）		Text（文本）		Comment
+		HTMLDocument（html文档） 		HTMLElement 	
+										HTMLDivElement  HTMLSpanElement	
+		1) 实例化（如何创建对象）
+				document
+				var one = document.getElementById("one");
+		2) API(在线文档)
+			1. Node
+			html中所有的内容都可以认为是节点，比如：doctype、html、head、注释、div内容"hello"、空格、回车都是节点
+				属性：
+					1) 获取节点基本信息的属性
+						nodeType 	
+							ELEMENT_NODE	1
+							TEXT_NODE		3
+							COMMENT_NODE	8	
+							DOCUMENT_NODE	9
+						nodeName
+							document 	#document
+							文本 			#text
+							元素 			标签名大写 DIV
+						nodeValue
+							文本，注释 	内容
+					2) 表示层次结构的属性
+						parentNode
+						parentElement
+						ownerDocument 	当前元素所在的文档对象
+						childNodes
+						firstChild
+						lastChild
+						nextSibling
+						previousSibling
+			2. Document
+			文档，表示整个html文档或者xml文档，一般情况下一个html可以使用一个Document的实例来表示，即document
+				属性
+					body
+					head
+					title
+				方法：
+					getElementById()
+					getElementsByClassName();
+					getElementsByTagName()
+					getElementsByName()
+					querySelector(选择器)
+					querySelectorAll(选择器)
+			3. Element【*】
+			元素，html文档中的所有的元素都可以映射为一个Element实例
+				body/div/p/span/table/form...
+				属性
+					1) 元素属性相关的属性
+							id
+							className
+						自有属性
+							name
+							href
+							src
+							alt
+							target
+							...
+						自定义属性
+					2) 元素层次结构相关属性
+						children
+						firstElementChild
+						lastElementChild
+						nextElementSibling
+						previousElementSibling
+						innerHTML
+							获取或设置一个元素内的html内容
+						innerText
+							获取或设置一个元素内的文本内容
+				方法
+					1) 属性相关
+						getAttribute(key)
+						setAttribute(key,val)
+						querySelector(选择器)
+						querySelectorAll(选择器)
+11. 事件
+	1) 介绍
+		1. 获取事件源
+		2. 为事件源绑定事件处理函数
+			事件类型
+			click 、focus 、blur 、submit 、mouseover 、mouseout
+			事件处理函数：
+				当绑定的事件类型被触发的时候该函数执行
+		3. 从事件对象中获取事件详细信息
+			当事件处理函数执行的时候，dom会将事件对象传递给事件处理函数
+	2) 事件流
+		前提条件：元素嵌套；每层元素上绑定事件
+			<div class="outer">
+				<div class="center">
+					<div class="inner">
+
+					</div>
+				</div>
+			</div>
+		1. 事件捕获	
+			外层->内层
+		2. 事件冒泡（默认事件执行顺序）
+			内层->外层
+	3) 事件对象
+		target:
+			目标对象，用户操作的那个dom对象
+		currentTarget:
+			当前目标对象，表示事件处理函数绑定的那个dom对象
+		stopPropagation()
+			停止冒泡
+		preventDefault()
+			阻止默认行为
+		keyCode
+			按键值
+		...
+	4) 事件类型
+		click
+		dbclick
+		keyup
+		keydown
+		keypress
+		focus
+		blur
+		mouseup
+		mousedown
+		mouseover	 	光标移动到元素上，支持子元素
+		mouseout		光标移出元素，支持子元素
+		mouseenter		光标移动到元素上，不支持子元素
+		mouseleave		光标移出元素，不支持子元素
+		onload
+		window.onload   当前页面中的内容加载完毕
+12. 事件代理
+	将事件绑定在当前元素的父元素上而非当前元素上，这时候当点击当前元素的时候，执行父元素上绑定的事件处理函数，可以通过event.target获取当前元素。
+	父元素代理子元素所有的事件，子元素可以动态添加和删除而不用频繁绑定事件
+	dom问题：
+		1) 获取元素比较复杂 querySelector() 【兼容】
+		2) dom操作较为复杂，不能进行批量操作

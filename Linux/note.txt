@@ -1,0 +1,232 @@
+ 1.linux特点
+		1. 性能强劲，运行稳定，一般作为服务器
+		2. 整个操作系统可以被压缩成很小的一个文件，容易植入一些硬件设备中
+		3. 开源免费(linux源代码)
+		4. 对于初学者容易建立编程思维，是学习编程语言最好的环境
+			linux
+			c				vc
+			java		eclipse/myeclipse
+			c++ 		vc
+			php			eclipse
+		5. 文件系统
+			没有盘符的概念，所有的文件都处于根目录下，目录也是一种特殊的文件
+2. 使用
+	1. 登录方式：
+			win10 openssh: dos
+			mac 	打开ssh服务：
+			win7 	xshell
+			$ ssh root@ip
+			应用镜像，
+				wordpress
+				lamp
+			系统镜像
+				win server
+				centos
+				ubuntu16.04
+				ubuntu18.04
+			:							分割符号
+			~ 							当前所在目录	 
+			$ 							分割符号
+	2. 用户管理（超级管理员身份）
+		root / 默认密码（重置密码）
+		使用root登录到ubuntu系统中
+		1) 创建新用户
+			$ adduser 用户名称
+			过程：
+				1. 新建组，组名与用户名保持一致
+					/etc/group		保存了组信息
+				2. 新建用户，并且将用户放到刚刚新建的组中
+					/etc/passwd 	保存了用户信息
+					/etc/shadow  	保存了用户的密码信息	
+				3. 创建了一个家目录 /home/xxx
+				4. /etc/skel拷贝到用户家目录		
+		2) 删除用户
+			$	userdel -r zhangsan
+			删除用户信息，并且将用户家目录也给删除
+		3) 切换用户
+			$ su - 
+		4) 修改用户
+			$ usermod
+			$ usermod -g 1008 zhangsan
+			将zhangsan的组id换成1008
+		5) 修改组信息
+			$ groupmod
+			$ groupmod -n group0 boss
+	3. linux目录结构
+		/
+			/home 	普通用户家目录
+					默认情况下，普通用户只能在用户家目录中进行更新操作（增加、删除、修改）
+			/root 	超级管理员的家目录
+			/etc 		系统配置文件目录
+			/opt 		第三方文件解压安装目录
+			/usr 		文件的默认目录
+			/var 		
+			/sys 		系统目录
+			/dev		
+	4. 文件系统
+		1) 新建目录
+			$ mkdir linux es5 es6
+			$ mkdir -p day01/a/b/c
+		2) 新建文件/修改最近访问时间
+			$ touch 文件名
+			如果指定的文明名不存在，创建该文件。如果存在，修改最近访问时间为当前时间
+		3) 拷贝文件或者目录
+			$ cp a.txt a.txt.bak
+			$ cp -r dir1 dir2
+		4) 连接
+			创建硬链接（防止误删除，多个指针指向同一个inode）
+			$ ln a.txt a.txt.h 	
+			创建软连接(快捷方式)
+			$ ln -s a.txt a.txt.s
+		5) 移动
+			$ mv a.* dir1
+			$ mv a b
+		6) 删除
+			$ rm a.txt
+			$ rm -r dir2
+			$ rmdir 	只能删除空目录
+		7) 重定向
+			>
+			>> 
+			$ date > a.txt
+			$ date >> a.txt
+			$ more /etc/passwd > b.txt
+			$ ls -l /etc > c.txt
+		8) 压缩与解压缩
+			1. 压缩
+				.gz 	gzip 	压缩
+				.bz2 	bzip2	压缩
+				.zip 	zip		打包压缩
+				$ gzip a.txt 	
+				=> a.txt.gz
+				$ bzip2 a.txt
+				=> a.txt.bz2 
+				$ zip all.zip *.txt
+				=> all.zip 	(a.txt b.txt c.txt)
+			2. 解压
+				$ gunzip a.txt.gz
+				=> a.txt
+				$ bunzip2 a.txt.bz3
+				=> a.txt
+				$ unzip all.zip
+				=> a.txt b.txt c.txt
+				$ unzip all.zip -d dir2
+				=> dir2/a.txt b.txt c.txt
+			3. 归档
+				tar	
+					-c 	创建归档文件
+					-x 	拆档
+					-v 	打印细节
+					-f 	指定归档/拆档文件
+					-j 	bzip2格式 	xxx.tar.bz2
+					-z 	gzip格式 	xxx.tar.gz
+				$ tar cvf all.tar *.txt
+				$ tar cvzf all.tar.gz *.txt	(gzip)
+				$ tar cvjf all.tar.bz2 *.txt (bzip2)
+			
+			4. 拆档
+				$ tar xvf all.tar.gz
+	5. 其他命令
+		$ clear
+			清理终端屏幕
+		$ ls /home
+			列出家目录的所有的目录以及文件
+			zhangsan/zhangsan123
+			ls -l
+				rwx 	read write execute 	拥有者权限
+				r-x 	read - execute 			同组人权限
+				r-x 	read - execute 			其他人权限
+			licy	拥有者
+			webui	拥有者所属组
+			4096	文件大小
+			Aug 13 14:42	最近访问时间
+			dir1	文件名称
+		$ man 命令
+			查看指定命令的手册
+			q 	quit 退出手册
+			回车 下一行
+			空格 下一页
+		$ more 预览
+		$ less 预览
+		$ cat 	连接后显示
+		$ tac 	连接后显示
+		$ nl 		添加行号后显示
+		$ tail 预览末尾10行
+		$ head 预览头10行
+		$ cd 	 切换目录
+			cd 		回到家目录
+			cd ~ 	回到家目录
+			cd / 	切换到根目录
+			cd /home/zhangsan 	切换到/home/zhangsan目录下
+		$ pwd 	输出当前目录地址
+	6. 权限	
+			拥有者 		u 		user
+			同组人 		g 		group
+			其他人 		o 		other
+			所有人 		a 		all
+		权限类型
+			读				r 		read
+			写 			w 		write
+			执行 		x 		execute
+		权限
+			rw- 	110 	6
+			r-x 	101 	5
+		修改文件权限
+		1. 通过表达式来修改
+			$ chmod g-r a.txt
+			$ chmod o+w a.txt
+		2. 通过二进制方式修改
+			--x 	001 	1
+			-w-		010		2
+			-wx		011		3
+			r-- 	100		4
+			r-x 	101		5
+			rw- 	110		6
+			rwx 	111		7
+			$ chmod 644 a.txt
+			修改a.txt的权限，拥有者具有读写权限，同组人和其他人具有读权限
+	7. vim
+		1) 打开vim
+			1. 打开vi 编写 保存
+			2. 新建文件，通过vi打开文件
+			3. 直接打开一个文件
+		2) 模式
+			命令行模式
+				复制		yy
+				粘贴 	p
+				删除 	dd 	dw
+				回退		u
+				替换当前行	cc
+			底行模式【底行可以输入】
+				保存 		:w
+				另存为 		:w other.txt
+				退出 		:q
+				保存退出 	:wq
+				不保存退出 	:q!
+				查找 		/larry	n表示查找下一个
+				替换 		:1,$s/jj/8888/g
+				复制 		:1,4co55
+				剪切			:1,4m$
+		3) vi配置
+			~/.vimrc
+			spf13-vim
+			$ git --version
+			$ curl https://j.mp/spf13-vim3 -L > spf13-vim.sh && sh spf13-vim.sh
+	8. sudo
+		$ more /etc/shadow
+		$ sudo more /etc/shadow
+		# vi /etc/sudoers
+		将要添加的用户添加在root后面
+	9. 其他重要命令
+		$ find ./ -name '*.txt'
+			查找当前目录中所有的.txt文本文档
+		$ grep 1003 /etc/passwd
+			查找passwd文件中的包含1003行的内容
+		$ sleep 1000s
+		$ sleep 1000s &
+			将当前进程放到后台执行
+		$ ps -ef | grep java
+			在所有进程中找到java相关的进程
+		$ kill -9 pid
+		$ reboot
+			重启云服务器
